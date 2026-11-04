@@ -6,7 +6,7 @@ event recaps. One skill, distilled from real client revision rounds.
 What it gives the agent:
 
 1. **A workflow** (`skills/design-ai/SKILL.md`) — brief → brand research → agree a direction → assets → scripted build → self-check →
-   deliver. Asks for a reference early, proposes 2–3 directions when the brief is vague, verifies offers/dates, never exports before approval.
+   deliver → feed the kit. Asks for a reference early, proposes 2–3 directions when the brief is vague, verifies offers/dates, never exports before approval, and after approval proposes what the job should add to the kit (new example, rule, gotcha).
 2. **Design principles** (`references/principles.md`) — rules learned from rejected drafts: match the brand's own
    style, fresh over dark, one light source, offer is the hero, no empty zones, logos printed *into* product photos.
 3. **Re-runnable builds** — JSON config → VectorCraft document, headless; every revision is a config edit +

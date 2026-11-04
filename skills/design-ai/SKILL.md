@@ -71,6 +71,10 @@ Pick the template that matches the brand's poster system — flat layout with a 
 `.vectorcraft` file, overwritten on every run. If the app is open, refresh the user's single tab after each run
 (close stale tab → open file; see "Live preview").
 
+**No template fits** (new format, new layout type: event recap with a stats row, schedule, story 1080×1920…)?
+Start from the closest template, copy it into the project as `01_Material/Scripts/<project>_build.py` and extend
+it there — never edit the kit's templates mid-job. Note in the reply that this is a new type.
+
 If the client rejects **the same defect a second time**, stop hand-fixing: propose a re-generation (with its credit
 cost) or a different approach, and let them choose.
 
@@ -87,6 +91,21 @@ Render, look at the whole image **and** zoomed crops (seams, overlaps, logo plac
   `.psd` for retouching (see "Hand-off to Adobe"). Never create v2, v3… copies — the build script is the history.
 - Write to `LOG.md` **only after a large change** (new direction, new assets, many rounds) — a few lines,
   feedback → decision, so the next agent can continue. Small tweaks don't get a log entry.
+
+## Step 8 — Feed the kit (after approval only)
+
+When the design is approved, check whether the job taught the kit something reusable:
+
+| Learned | Goes to |
+|---|---|
+| A new layout type or format that worked | `examples/<type>-<format>.json` (+ a generic section in the matching template if the config needed new keys) |
+| A rule from a rejected draft | `references/principles.md` or `checklist.md`, one line, no brand names |
+| A tool/AI gotcha or a working prompt | `references/vectorcraft.md` / `ai-assets.md` |
+
+Then **propose** it to the user as a short list (what, which file) and wait for a yes. On yes: strip brand content
+(neutral copy, placeholder asset paths, no logos/photos), keep it general — one-off or seasonal effects stay in the
+project as `decor`, not in the kit; re-run **every** example to prove nothing broke; show the diff; commit/push only
+when the user says so.
 
 ## Project layout
 

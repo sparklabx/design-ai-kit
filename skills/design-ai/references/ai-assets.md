@@ -42,6 +42,9 @@ objects get cropped or collide with the logo.
 - Outpainting/expanding a scene invented garbage text — avoid.
 - AI misses sizes: "logo 30 %" gave ~20 % smaller; "logo 32 % of the cup" came out ~60 %. Ask for **less** than
   the target, measure the result, report it.
+- "Failed to download image from the provided URL": the AI service fetches URLs itself, so local paths, localhost,
+  expired presigned links and hotlink-blocked sites (Wikipedia) fail. Upload the file instead (Magnific:
+  `creations_request_upload` → `curl -X PUT --upload-file` → `creations_finalize_upload`) and pass the creation id.
 - Always generate **2 variants** per paid edit: one often re-composes the scene, the other is usable.
 - Harmonise mixed sources before compositing: `scripts/image_tools.py harmonize` (white balance, saturation, one light direction,
   back items darker).
