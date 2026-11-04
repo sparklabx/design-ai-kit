@@ -1,5 +1,5 @@
 ---
-name: design
+name: design-ai
 version: 0.1.0
 description: Use when the user asks for a marketing visual — social banner, promo post, poster, key visual, event recap, product ad — for a brand or campaign. Researches the brand, sources real/stock/AI assets, builds the layout as a re-runnable script with VectorCraft (headless), self-checks the render, and exports only when the design is approved.
 license: MIT

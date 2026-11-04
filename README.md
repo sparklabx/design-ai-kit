@@ -5,7 +5,7 @@ event recaps. One skill, distilled from real client revision rounds.
 
 What it gives the agent:
 
-1. **A workflow** (`skills/design/SKILL.md`) — brief → brand research → assets → scripted build → self-check →
+1. **A workflow** (`skills/design-ai/SKILL.md`) — brief → brand research → assets → scripted build → self-check →
    deliver. Asks for a reference early, verifies offers/dates, never exports before approval.
 2. **Design principles** (`references/principles.md`) — rules learned from rejected drafts: match the brand's own
    style, fresh over dark, one light source, offer is the hero, no empty zones, logos printed *into* product photos.
@@ -20,17 +20,17 @@ What it gives the agent:
 
 ```bash
 git clone https://github.com/sparklabx/design-ai-kit
-mkdir -p ~/.claude/skills && cp -r design-ai-kit/skills/design ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r design-ai-kit/skills/design-ai ~/.claude/skills/
 ```
 
-Other agents: point them at `skills/design/SKILL.md`.
+Other agents: point them at `skills/design-ai/SKILL.md`.
 
 **Requirements:** `vectorcraft-cli` on PATH, Python 3.9+ with Pillow and numpy. Optional: an image-generation MCP.
 
 ## Try it
 
 ```bash
-cd skills/design/scripts
+cd skills/design-ai/scripts
 # edit promo-square.example.json: asset paths, copy, palette
 python3 -I build_template.py promo-square.example.json steps.json out.vectorcraft
 vectorcraft-cli run --commands steps.json --export preview.png
