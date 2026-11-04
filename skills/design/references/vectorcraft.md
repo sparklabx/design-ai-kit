@@ -5,9 +5,29 @@
 ```bash
 python3 -I build.py steps.json out.vectorcraft      # script writes steps JSON (+ a document.save step)
 vectorcraft-cli run --commands steps.json --export /tmp/preview.png       # render to look at
-vectorcraft-cli run --in out.vectorcraft --export a.psd --export a.png --export a.jpg   # on approval
+vectorcraft-cli run --in out.vectorcraft --export a.ai --export a.psd --export a.png --export a.jpg   # on approval
 vectorcraft-cli run --in out.vectorcraft --scale 2 --export a@2x.png
 ```
+
+## Live preview for the user (one tab, always current)
+
+After each headless rebuild, refresh the user's app view through the GUI MCP — close the stale tab, open the new file:
+
+1. `inspect_document` / `document.activate {index}` to find the tab whose `path` is the working file.
+2. `file.close {index}` that tab (it is unmodified; if `dirty: true` the user edited it — **stop and ask**).
+3. `open_file {path}`.
+
+Never `file.revert` for this (it only reloads modified documents). Never open a new tab per round.
+
+## Hand-off to Adobe
+
+| Deliver | Opens in | Editable there | Baked |
+|---|---|---|---|
+| `.ai` (PDF-compatible, default) | Illustrator | vectors, gradients, clipping, embedded images; text stays text if fonts installed (may split per line) | live effects (shadow, blur, glow, warp) |
+| `.psd` (`options.maxEditability: true` → one layer per object, named) | Photoshop | layer order, position, opacity, blend | everything is pixels, text included |
+| `.pdf` / `.eps` / `.svg` | any | vectors | effects |
+
+Ship the font files with the `.ai`. VectorCraft also **opens** `.ai/.psd/.pdf/.eps`, so a designer's Adobe file can come back.
 
 - `steps.json` = array of `{"command": id, "params": {...}}`. `"$N.id"` / `"$N.ids.0"` reference step N's result.
 - Each run is a fresh document: the script is the source of truth. Overwrite the same `.vectorcraft`.
@@ -15,7 +35,7 @@ vectorcraft-cli run --in out.vectorcraft --scale 2 --export a@2x.png
   the wrong document. If you must drive the GUI, start every batch with `document.activate {index}` and
   `select_tool selection` (with the Type tool active, `edit.clear` deletes characters and canvas clicks create
   "Sample copy…" text objects).
-- After a headless rebuild, tell the user to close/reopen the file in the app; do not let them save the stale tab over it.
+- After a headless rebuild, refresh the user's view (below) so they never save a stale tab over the new file.
 
 ## Commands that matter
 

@@ -48,7 +48,8 @@ must look like one photograph — never paste a vector logo onto a photo.
 ## Step 4 — Build → `references/vectorcraft.md`
 
 Copy `scripts/build_template.py` + `scripts/promo-square.example.json` into `01_Material/Scripts/`, fill the config (positions from `image_tools.py bbox`), run headless. One working
-`.vectorcraft` file, overwritten on every run.
+`.vectorcraft` file, overwritten on every run. If the app is open, refresh the user's single tab after each run
+(close stale tab → open file; see "Live preview").
 
 ## Step 5 — Self-check → `references/checklist.md`
 
@@ -58,8 +59,9 @@ Render, look at the whole image **and** zoomed crops (seams, overlaps, logo plac
 
 - Show the render (a preview in a temp folder, not in the project); list what is placeholder/unverified,
   asset licences, AI credits spent.
-- **No export until the design is approved or the user asks for one.** Then export one set (PNG/JPG/PSD) into
-  `03_Export/`, overwriting the previous set. Never create v2, v3… copies — the build script is the history.
+- **No export until the design is approved or the user asks for one.** Then export one set into
+  `03_Export/`, overwriting the previous set: PNG/JPG to post, `.ai` + fonts for a designer (Illustrator),
+  `.psd` for retouching (see "Hand-off to Adobe"). Never create v2, v3… copies — the build script is the history.
 - Write to `LOG.md` **only after a large change** (new direction, new assets, many rounds) — a few lines,
   feedback → decision, so the next agent can continue. Small tweaks don't get a log entry.
 
@@ -68,7 +70,7 @@ Render, look at the whole image **and** zoomed crops (seams, overlaps, logo plac
 ```
 <Project>_Banner/
   01_Material/{Logo,Fonts,Images,Scripts}   # sources + build script (the design lives here)
-  02_PSD/<name>.vectorcraft (+ .psd on approval)
+  02_PSD/<name>.vectorcraft (+ .ai/.psd on approval)
   03_Export/<name>.png|@2x.png|.jpg          # approval only
   LOG.md
 ```
