@@ -1,0 +1,42 @@
+{
+  "name": "Brand_Promo_1080x1080",
+  "canvas": [1080, 1080],
+  "palette": {
+    "base": "#F8F5EC", "brand": "#0F6B3B", "brand_light": "#E1F0D2", "accent": "#B9D96A",
+    "text_on_brand": "#FFFFFF", "muted_on_brand": "#CFE6D8", "shadow": "#03200F"
+  },
+  "fonts": {"sans": "Be Vietnam Pro", "script": "Dancing Script"},
+  "background": {
+    "awning": {"stripe": 36, "height": 30},
+    "wave": "M0 565 C260 490 520 620 760 555 C900 520 1000 500 1080 510 L1080 1080 L0 1080 Z",
+    "ribbon": "M-20 527 C240 452 520 582 760 517 C900 483 1000 461 1100 472",
+    "pattern": {"step": 44, "dot": 16, "top": 455, "opacity": 5}
+  },
+  "logo": {"path": "01_Material/Logo/logo.svg", "rect": [60, 48, 138, 103]},
+  "headline": {"xy": [58, 258], "text": "Ưu đãi cuối tuần", "size": 96},
+  "offer": {
+    "pill": [56, 318, 486, 190], "line_size": 64,
+    "lines": [[118, 405, "MUA 1"], [118, 478, "TẶNG"]],
+    "stamp": [475, 413, 113], "numeral": "1", "numeral_size": 210
+  },
+  "badge": {
+    "rect": [790, 52, 250, 146],
+    "lines": [[111, "ÁP DỤNG TOÀN BỘ", 16, "Bold", "text_on_brand"], [142, "TRÀ & CÀ PHÊ", 26, "ExtraBold", "text_on_brand"], [171, "SIZE L", 18, "Bold", "accent"]]
+  },
+  "products": {
+    "glow": [390, 320, 720, 600],
+    "particles": {"path": "01_Material/Images/particles_nobg.png", "rect": [430, 250, 690, 690]},
+    "items": [
+      {"name": "Left",  "path": "01_Material/Images/product_left.png",  "size_px": 2048, "center_px": 1024, "bottom_px": 1878, "k": 0.29,  "cx": 538, "bottom": 975,  "z": 0},
+      {"name": "Right", "path": "01_Material/Images/product_right.png", "size_px": 2048, "center_px": 1020, "bottom_px": 1800, "k": 0.29,  "cx": 955, "bottom": 975,  "z": 0},
+      {"name": "Hero",  "path": "01_Material/Images/product_hero.png",  "size_px": 2048, "center_px": 1024, "bottom_px": 1956, "k": 0.355, "cx": 745, "bottom": 1010, "z": 1}
+    ]
+  },
+  "sparkles": [[575, 110, 14], [700, 90, 10], [1035, 250, 12]],
+  "info": {
+    "date_pill": [64, 645, 300], "date": "08 – 09.11.2026",
+    "bullet_y": 758, "bullet": "Tại cửa hàng & app",
+    "cta": [64, 805, 340], "cta_text": "ĐẶT NGAY TRÊN APP",
+    "disclaimer": "*Không áp dụng đồng thời với chương trình khuyến mãi khác."
+  }
+}

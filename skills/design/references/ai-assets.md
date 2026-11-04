@@ -1,0 +1,37 @@
+# Assets: stock + AI (Magnific MCP recipes)
+
+Always: check credits (`account_balance`), estimate (`simulate_cost`), tell the user what you spend.
+Name downloaded files by the **creation identifier** you waited on — results do not come back in call order.
+
+## Sourcing order
+
+1. Client's official files (logo, product photos, brand guide).
+2. Stock (`stock_search` → `stock_download format:source`): real photos, licensed. Check licence/premium cost.
+3. AI generation for what stock cannot give: the product **with the logo printed on it**, a full scene, particles.
+4. Never AI-generate real people's faces or a brand's logo from scratch — use the real logo file as a reference.
+
+## Recipes (Nano Banana / any image-edit model with references)
+
+**Print a logo onto a product photo** (the fix for "logo doesn't stick to the cup"):
+refs = [product on white, logo PNG]. Prompt: *"Edit the first image only. Keep the product, framing, size, position
+and white background exactly the same. Print the logo from the second image directly onto the product as real
+factory printing: centred, at mid-height, logo width about 30 % of the product width. It wraps around the curved
+surface, same lighting (brighter on the light side), reflections and condensation pass over it, opaque white ink
+underlayer so small text stays readable. Keep the logo design exactly. No other changes."*
+Then remove background. One call per product (~65 cr + 3 cr).
+
+**Particles** (ice, leaves, beans…): *"…isolated on pure white, scattered around an empty centre (centre 50 % empty),
+soft light from upper left, no shadows, no text."* → remove background → place behind the product.
+
+**Fix one thing in an AI scene** (blurred back object, too-strong light): edit with the previous result as the only
+reference and say *"keep everything identical; only …"*. Light direction: describe it in words
+("one soft key light from the upper left, shadows to the lower right") — the dedicated relight tool gave weak direction.
+
+## Gotchas
+
+- AI scenes with a baked background rarely blend into a vector layout; prefer cut-out products on the layout's own
+  background. If you do use a scene, feather its edges (`scripts/image_tools.py feather`) and keep layout colours sampled from it.
+- Outpainting/expanding a scene invented garbage text — avoid.
+- AI shrinks/edits only partially ("logo 30 %" gave ~20 % smaller). Check, and say so.
+- Harmonise mixed sources before compositing: `scripts/image_tools.py harmonize` (white balance, saturation, one light direction,
+  back items darker).
