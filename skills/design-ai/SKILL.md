@@ -40,22 +40,35 @@ Check the brief is still true (an event already ended, a season already aired) a
 Find the brand's **current** identity (rebrands happen), its own recent posters, palette, type style, packaging.
 Record sources and licence of every asset (logo from Wikipedia is "fair use", not a brand file).
 
-## Step 3 — Assets → `references/ai-assets.md`
+## Step 3 — Agree a direction (before any build or paid AI call)
+
+If the request is vague ("make a banner for X", "make it prettier", "more impressive") or allows more than one
+reading, **do not pick for the user**. Propose 2–3 directions and wait for a choice:
+
+- One short line each: concept · mood · background tone · layout (where offer, product, text sit) · assets it needs
+  · AI credits it would cost. Put the one closest to the brand's own posters first, marked *(recommended)*.
+- Use the agent's question tool when it has one; otherwise a numbered list and stop.
+- For a revision note ("chưa đẹp", "đơn điệu", "lighting wrong"), restate what you will change in one line per
+  item before doing it; if a note has two readings, ask which.
+
+Skip this only when the user already fixed the direction (gave a reference to follow, or chose an option).
+
+## Step 4 — Assets → `references/ai-assets.md`
 
 Priority: client's official assets › stock (licensed) › AI-generated. Product shots and anything with a logo on it
 must look like one photograph — never paste a vector logo onto a photo.
 
-## Step 4 — Build → `references/vectorcraft.md`
+## Step 5 — Build → `references/vectorcraft.md`
 
 Copy `scripts/build_template.py` + `scripts/promo-square.example.json` into `01_Material/Scripts/`, fill the config (positions from `image_tools.py bbox`), run headless. One working
 `.vectorcraft` file, overwritten on every run. If the app is open, refresh the user's single tab after each run
 (close stale tab → open file; see "Live preview").
 
-## Step 5 — Self-check → `references/checklist.md`
+## Step 6 — Self-check → `references/checklist.md`
 
 Render, look at the whole image **and** zoomed crops (seams, overlaps, logo placement). Fix before showing.
 
-## Step 6 — Deliver
+## Step 7 — Deliver
 
 - Show the render (a preview in a temp folder, not in the project); list what is placeholder/unverified,
   asset licences, AI credits spent.
