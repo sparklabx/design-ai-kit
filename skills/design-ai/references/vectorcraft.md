@@ -3,7 +3,7 @@
 ## Run
 
 ```bash
-python3 -I build.py steps.json out.vectorcraft      # script writes steps JSON (+ a document.save step)
+python3 -E build.py steps.json out.vectorcraft      # script writes steps JSON (+ a document.save step)
 vectorcraft-cli run --commands steps.json --export /tmp/preview.png       # render to look at
 vectorcraft-cli run --in out.vectorcraft --export a.ai --export a.psd --export a.png --export a.jpg   # on approval
 vectorcraft-cli run --in out.vectorcraft --scale 2 --export a@2x.png
@@ -61,4 +61,12 @@ Ship the font files with the `.ai`. VectorCraft also **opens** `.ai/.psd/.pdf/.e
   `fontTools.varLib.instancer`). Check `text.create` result for a `warning` (fallback font).
 - Stock "PSD with transparent background" often has the checkerboard **baked in** (3 channels, no alpha):
   export to PNG, then run a background remover.
+- A full-bleed image that is zoomed or offset **must be clipped to the artboard** (rectangle W×H on top →
+  `object.clippingMask.make`); otherwise the app shows the artboard edge as a line ("khung line") although the
+  export looks clean. `scene_template.py` does this.
+- `shape.ellipse {rotation}` was ignored once — rotate after drawing with `object.rotate {angle}`.
+- Closed loops drawn as Bézier paths (bow loops) may not render — use ellipses.
+- Gradient on text works: select the text → `paint.setFill {gradient:{kind:"linear", angle:-90, stops:[…]}}`.
+- Python: run scripts with `python3 -E` (not `-I`: it hides user-site Pillow/numpy; there is no `-P` on 3.9) and
+  never from inside a folder holding downloaded files.
 - Exports are big (PSD 2–5 MB, @2x PNG 3 MB). Don't export intermediates.

@@ -1,6 +1,6 @@
 """Promo banner builder: config JSON → VectorCraft steps JSON (+ document.save).
 
-    python3 -I build_template.py config.json steps.json out.vectorcraft
+    python3 -E build_template.py config.json steps.json out.vectorcraft
     vectorcraft-cli run --commands steps.json --export /tmp/preview.png
 
 Layout (from the brand's own poster system): light base, awning stripes, brand-colour wave with faint

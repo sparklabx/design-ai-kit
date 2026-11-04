@@ -5,10 +5,13 @@
   harmonize <in> <out> [--gain r,g,b] [--sat 1] [--contrast 1] [--bright 1] [--light left|right|none]
                                           one white balance + one light direction across mixed sources
   sheet    <out> <img> [<img> …]          side-by-side contact sheet on the layout base colour, for picking
+  emptiness <render.png> [--grid 3] [--ratio 0.5]
+                                          detail score per grid cell; flags cells far emptier than the median
+  textw    <font.ttf> <size> <text>       rendered text width/height in px (VectorCraft Pixels: 1 pt = 1 px)
 """
 import sys
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFont
 
 
 def load(p):
@@ -64,8 +67,32 @@ def sheet(dst, paths, cell=400, bg=(248, 245, 236)):
     s.convert("RGB").save(dst)
 
 
+def emptiness(p, grid=3, ratio=0.5):
+    L = load(p)[..., :3] @ np.array([0.299, 0.587, 0.114], np.float32) * 255
+    g = np.abs(np.diff(L, axis=0))[:, :-1] + np.abs(np.diff(L, axis=1))[:-1, :]
+    h, w = g.shape
+    sc = np.array([[g[r * h // grid:(r + 1) * h // grid, c * w // grid:(c + 1) * w // grid].mean() for c in range(grid)] for r in range(grid)])
+    med = np.median(sc)
+    for r in range(grid):
+        print("  ".join(f"{v:6.1f}{'*' if v < ratio * med else ' '}" for v in sc[r]))
+    empty = [(r, c) for r in range(grid) for c in range(grid) if sc[r, c] < ratio * med]
+    print(f"median {med:.1f}; empty cells (row,col): {empty or 'none'}  → fill or justify each")
+
+
+def textw(font, size, s):
+    x0, y0, x1, y1 = ImageFont.truetype(font, int(size)).getbbox(s)
+    print(f"width {x1 - x0} height {y1 - y0} (left {x0}, top {y0} from origin)")
+
+
+def flags(args):
+    kw, rest = {}, iter(args)
+    for f in rest:
+        kw.setdefault(f[2:], []).append(next(rest))
+    return kw
+
+
 if __name__ == "__main__":
-    cmd, args = sys.argv[1], sys.argv[2:]
+    cmd, args = (sys.argv[1], sys.argv[2:]) if len(sys.argv) > 1 else ("help", [])
     if cmd == "bbox":
         for p in args:
             bbox(p)
@@ -79,5 +106,10 @@ if __name__ == "__main__":
         harmonize(args[0], args[1], **kw)
     elif cmd == "sheet":
         sheet(args[0], args[1:])
+    elif cmd == "emptiness":
+        kw = flags(args[1:])
+        emptiness(args[0], int(kw.get("grid", ["3"])[0]), float(kw.get("ratio", ["0.5"])[0]))
+    elif cmd == "textw":
+        textw(args[0], float(args[1]), " ".join(args[2:]))
     else:
         sys.exit(__doc__)

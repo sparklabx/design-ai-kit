@@ -27,11 +27,21 @@ soft light from upper left, no shadows, no text."* → remove background → pla
 reference and say *"keep everything identical; only …"*. Light direction: describe it in words
 ("one soft key light from the upper left, shadows to the lower right") — the dedicated relight tool gave weak direction.
 
+**Thin objects** (wire, cable, straw, string, antenna): say it in the prompt — *"hair-thin, light grey, low
+contrast, partly lost in haze"*. Pixel repair in a script is the last resort: one wire took 4
+repair rounds where a re-generation is ~65 cr.
+
+**Adding an object to a scene**: state the zones to keep clear in %, e.g. *"keep the top-right 15 % empty for the
+logo"* (an added cable car once covered the logo). Zoom/crop the scene **last**, after all AI additions, or new
+objects get cropped or collide with the logo.
+
 ## Gotchas
 
 - AI scenes with a baked background rarely blend into a vector layout; prefer cut-out products on the layout's own
   background. If you do use a scene, feather its edges (`scripts/image_tools.py feather`) and keep layout colours sampled from it.
 - Outpainting/expanding a scene invented garbage text — avoid.
-- AI shrinks/edits only partially ("logo 30 %" gave ~20 % smaller). Check, and say so.
+- AI misses sizes: "logo 30 %" gave ~20 % smaller; "logo 32 % of the cup" came out ~60 %. Ask for **less** than
+  the target, measure the result, report it.
+- Always generate **2 variants** per paid edit: one often re-composes the scene, the other is usable.
 - Harmonise mixed sources before compositing: `scripts/image_tools.py harmonize` (white balance, saturation, one light direction,
   back items darker).

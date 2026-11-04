@@ -8,6 +8,9 @@ Each rule below came from a client rejecting a draft. Apply them before the clie
   mirror its system (background tone, curve shapes, script + sans pairing, badge style). Drafts invented from
   scratch ("dark cinematic", "lava") were rejected as "quá lố" (overdone).
 - Use the brand's **current** identity: packaging and logo change on rebrands. Check the date of your references.
+- Download 2–3 of the brand's own posters as references yourself; it worked better than describing a style.
+- A logo pulled from the brand website is usually a 512 px PNG, often white-on-transparent: recolour it, and say it
+  is a web file, not a brand master.
 - Brand palette only. An off-palette accent (gold/orange on a green brand) reads as "not pretty / not matching".
   To make something pop, use **contrast inside the palette** (white on brand colour, a darker/lighter brand tint),
   size and placement — not a new hue.
@@ -44,6 +47,14 @@ Each rule below came from a client rejecting a draft. Apply them before the clie
 - Logo on a product must be **part of the photo** (printed/curved/lit/with condensation). A flat sticker or
   vector logo on top always reads as "không dính vào cốc".
 - Logo size on packaging ≈ 30–40 % of product width. Bigger looks fake.
+
+## Frames & effects
+
+- Thin decorative frames, dotted rings, hairline outlines around badges read as "vô duyên" (cheap). Prefer solid
+  colour blocks, or no frame at all.
+- **One effect per element.** When the client asks for "special effects", offer a short menu and recommend at most 2.
+- A texture on lettering (snow, drip, glow): build it from a 2× mask of the text so it follows the letters, keep
+  diacritics clear, and place it as a `decor` PNG.
 
 ## Rhythm / "đơn điệu"
 
