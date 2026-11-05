@@ -22,6 +22,8 @@ python3 -E -c "import PIL, numpy" 2>/dev/null || echo "MISSING Pillow/numpy"
 
 Missing → tell the user, stop. Never install system packages yourself.
 AI image tools (Magnific MCP or similar) are optional; check the account and credits before the first paid call.
+If the agent has a built-in image tool (Antigravity `generate_image`, billed to the user's plan), try it first;
+use the paid tool only for what it can't do (reference-heavy edits, a specific model, upscaling).
 
 ## Step 1 — Brief (ask before you draw)
 

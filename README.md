@@ -21,7 +21,8 @@ What it gives the agent:
 
 ```bash
 git clone https://github.com/sparklabx/design-ai-kit
-mkdir -p ~/.claude/skills && cp -r design-ai-kit/skills/design-ai ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r design-ai-kit/skills/design-ai ~/.claude/skills/          # Claude Code
+mkdir -p ~/.gemini/config/skills && cp -r design-ai-kit/skills/design-ai ~/.gemini/config/skills/   # Antigravity
 ```
 
 Other agents: point them at `skills/design-ai/SKILL.md`.
