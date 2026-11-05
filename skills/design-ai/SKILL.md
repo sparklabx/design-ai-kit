@@ -16,11 +16,12 @@ Follow the steps in order. Each step names the one reference to read.
 ## Step 0 — Tools
 
 ```bash
-command -v vectorcraft-cli >/dev/null && vectorcraft-cli --help | head -1 || echo "MISSING vectorcraft-cli"
-python3 -E -c "import PIL, numpy" 2>/dev/null || echo "MISSING Pillow/numpy"
+VC=$(command -v vectorcraft-cli || ls ~/.local/bin/vectorcraft-cli 2>/dev/null); echo "VC=${VC:-MISSING vectorcraft-cli}"
+PY=$(for p in $(which -a python3) /usr/bin/python3; do "$p" -E -c "import PIL, numpy" 2>/dev/null && { echo "$p"; break; }; done); echo "PY=${PY:-MISSING Pillow/numpy}"
 ```
 
-Missing → tell the user, stop. Never install system packages yourself.
+Agent shells often have a different PATH than the user's terminal, so use the printed full paths for
+`vectorcraft-cli` and `python3` in every later command. Missing → tell the user, stop. Never install system packages yourself.
 AI image tools (Magnific MCP or similar) are optional; check the account and credits before the first paid call.
 If the agent has a built-in image tool (Antigravity `generate_image`, billed to the user's plan), try it first;
 use the paid tool only for what it can't do (reference-heavy edits, a specific model, upscaling).
