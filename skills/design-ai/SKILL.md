@@ -17,14 +17,35 @@ Follow the steps in order. Each step names the one reference to read.
 
 ```bash
 VC=$(command -v vectorcraft-cli || ls ~/.local/bin/vectorcraft-cli 2>/dev/null); echo "VC=${VC:-MISSING vectorcraft-cli}"
-PY=$(for p in $(which -a python3) /usr/bin/python3; do "$p" -E -c "import PIL, numpy" 2>/dev/null && { echo "$p"; break; }; done); echo "PY=${PY:-MISSING Pillow/numpy}"
+V=~/.cache/design-ai/venv   # the kit's own Python env; never pip-installs into a system Python
+PY=$(for p in "$V/bin/python3" $(which -a python3 2>/dev/null) /usr/bin/python3; do "$p" -E -c "import PIL, numpy" 2>/dev/null && { echo "$p"; break; }; done)
+[ -z "$PY" ] && python3 -m venv "$V" && "$V/bin/pip" install -q --disable-pip-version-check pillow numpy && PY="$V/bin/python3"
+echo "PY=${PY:-MISSING Pillow/numpy}"
+"$PY" -E scripts/adobe.py detect   # Illustrator / Photoshop (macOS)
+AGY=$(command -v agy || ls ~/.local/bin/agy 2>/dev/null); echo "AGY=${AGY:-none}"   # Antigravity CLI: free image gen
 ```
 
 Agent shells often have a different PATH than the user's terminal, so use the printed full paths for
-`vectorcraft-cli` and `python3` in every later command. Missing → tell the user, stop. Never install system packages yourself.
+`vectorcraft-cli` and `python3` in every later command.
+
+**Engine** — the first one present: **Illustrator › VectorCraft › Photoshop** (Adobe engines: `references/adobe.md`,
+untested in the apps — say so to the user on first use).
+
+**Missing → install it yourself**, saying in one line what you install and where:
+
+| Missing | Do |
+|---|---|
+| Pillow/numpy | The block above installs them into `$V` (needs `python3` ≥ 3.9 and network). |
+| Any other Python library a script needs | `"$V/bin/pip" install <name>` and use `$V/bin/python3` from then on. |
+| `rsvg-convert` (Adobe engine self-check) | `brew install librsvg` if Homebrew exists; else self-check with `adobe.py export`. |
+| VectorCraft GUI MCP | Add it to this agent (see `references/vectorcraft.md` "Live preview"). |
+| Every engine | Can't be installed by you — Illustrator/Photoshop need the user's Adobe licence (Creative Cloud), VectorCraft its own installer. Tell the user, stop. |
+
+If an install fails or the agent blocks it, show the exact command for the user to run, and stop.
 AI image tools (Magnific MCP or similar) are optional; check the account and credits before the first paid call.
 If the agent has a built-in image tool (Antigravity `generate_image`, billed to the user's plan), try it first;
-use the paid tool only for what it can't do (reference-heavy edits, a specific model, upscaling).
+other agents reach the same tool through `scripts/agy_image.py --agy "$AGY"` when `AGY` is set (`references/ai-assets.md`).
+Use the paid tool only for what these can't do (a specific model, more than ~1K px for @2x/print, upscaling, stock).
 
 ## Step 1 — Brief (ask before you draw)
 
@@ -65,14 +86,15 @@ Skip this only when the user already fixed the direction (gave a reference to fo
 Priority: client's official assets › stock (licensed) › AI-generated. Product shots and anything with a logo on it
 must look like one photograph — never paste a vector logo onto a photo.
 
-## Step 5 — Build → `references/vectorcraft.md`
+## Step 5 — Build → `references/vectorcraft.md` (Illustrator/Photoshop: also `references/adobe.md`)
 
 Pick the template that matches the brand's poster system — flat layout with a colour wave:
 `scripts/build_template.py` + `examples/promo-square.json`; one full-bleed photo + lettering:
 `scripts/scene_template.py` + `examples/scene-square.json`. Seasonal or one-off decoration goes in as `decor` PNGs
 (make them with AI or a small project script), never as new template code. Copy it into `01_Material/Scripts/`, fill the config (positions from `image_tools.py bbox`), run headless. One working
 `.vectorcraft` file, overwritten on every run. If the app is open, refresh the user's single tab after each run
-(close stale tab → open file; see "Live preview").
+(close stale tab → open file; see "Live preview"). Illustrator/Photoshop engine: the same steps JSON goes through
+`scripts/steps_to_svg.py`; the working file is one `.svg` (see `references/adobe.md`).
 
 **No template fits** (new format, new layout type: event recap with a stats row, schedule, story 1080×1920…)?
 Start from the closest template, copy it into the project as `01_Material/Scripts/<project>_build.py` and extend
@@ -91,7 +113,10 @@ Render, look at the whole image **and** zoomed crops (seams, overlaps, logo plac
   asset licences, AI credits spent.
 - **No export until the design is approved or the user asks for one.** Then export one set into
   `03_Export/`, overwriting the previous set: PNG/JPG to post, `.ai` + fonts for a designer (Illustrator),
-  `.psd` for retouching (see "Hand-off to Adobe"). Never create v2, v3… copies — the build script is the history.
+  `.psd` for retouching (see "Hand-off to Adobe"; Adobe engine: `adobe.py export`). Never create v2, v3… copies — the build script is the history.
+- AI images made at ~1K (agy / built-in tool) are soft at `@2x`: on approval, upscale **the approved images** 2x
+  (Magnific `images_upscale`, mode `ultra-photo`; quote the credits first), re-point the config, rebuild, then
+  export. Never regenerate them — a new generation differs from what the client approved.
 - Write to `LOG.md` **only after a large change** (new direction, new assets, many rounds) — a few lines,
   feedback → decision, so the next agent can continue. Small tweaks don't get a log entry.
 

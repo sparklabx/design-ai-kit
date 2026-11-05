@@ -27,7 +27,10 @@ mkdir -p ~/.gemini/config/skills && cp -r design-ai-kit/skills/design-ai ~/.gemi
 
 Other agents: point them at `skills/design-ai/SKILL.md`.
 
-**Requirements:** `vectorcraft-cli` on PATH, Python 3.9+ with Pillow and numpy. Optional: an image-generation MCP.
+**Requirements:** Python 3.9+ (the skill installs Pillow/numpy into `~/.cache/design-ai/venv` if missing), plus one engine — Illustrator › VectorCraft (`vectorcraft-cli`)
+› Photoshop, picked in that order. The Adobe path (`scripts/steps_to_svg.py` + `scripts/adobe.py`, macOS) is
+untested in the apps; see `references/adobe.md`. Optional: an image-generation MCP, or the Antigravity CLI `agy`
+(`scripts/agy_image.py` uses its built-in image tool on your Google plan).
 
 ## Try it
 

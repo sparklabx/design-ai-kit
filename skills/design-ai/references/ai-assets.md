@@ -3,6 +3,15 @@
 Always: check credits (`account_balance`), estimate (`simulate_cost`), tell the user what you spend.
 Name downloaded files by the **creation identifier** you waited on — results do not come back in call order.
 
+**No Magnific, or to save credits:** if the Antigravity CLI `agy` is installed and signed in, any agent can use its
+built-in image tool (billed to the user's Google plan) from the shell — text-to-image and edits with references:
+`"$PY" -E scripts/agy_image.py out.png "<prompt>" --ref product.png --ref logo.png` (~1 min per image; no
+upscale, stock or background removal — those stay with Magnific or `image_tools.py`). Name the aspect ratio in the
+prompt (1:1, 2:3, 3:2, 3:4, 4:3, 9:16, 16:9). Resolution is fixed (1024×1024 at 1:1; no resolution or model option);
+fine for a 1080 post and for every draft round, soft at @2x or print. On approval, upscale only the approved images
+(SKILL.md Step 7; 2x `ultra-photo` = 90 credits per 1024² image, a Nano Banana Pro 2K generation = 75 — so if the
+brief already says print, generate on Magnific at 2K from the start).
+
 ## Sourcing order
 
 1. Client's official files (logo, product photos, brand guide).

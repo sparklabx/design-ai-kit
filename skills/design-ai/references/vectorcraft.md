@@ -19,6 +19,15 @@ After each headless rebuild, refresh the user's app view through the GUI MCP —
 
 Never `file.revert` for this (it only reloads modified documents). Never open a new tab per round.
 
+No GUI MCP in this agent? Add it (stdio server `"$VC" mcp`, full path from Step 0), keeping any servers already there:
+
+- Claude Code: `claude mcp add -s user vectorcraft -- "$VC" mcp`
+- Antigravity / others with an `mcpServers` JSON (Antigravity: `~/.gemini/config/mcp_config.json`, may be empty):
+  merge `"vectorcraft": {"command": "<VC>", "args": ["mcp"]}` into `mcpServers`.
+
+It loads when the agent restarts — tell the user. Until then, after a rebuild that changes what the user is looking
+at, open the file with the OS (macOS `open <file>.vectorcraft`) and tell the user to close the stale tab first.
+
 ## Hand-off to Adobe
 
 | Deliver | Opens in | Editable there | Baked |
