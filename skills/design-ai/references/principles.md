@@ -65,5 +65,5 @@ Each rule below came from a client rejecting a draft. Apply them before the clie
 
 ## Copy (Vietnamese)
 
-- Use fonts with full Vietnamese coverage (check every diacritic: Ư Ơ Ặ Ầ Ố Đ). Tested OK: Be Vietnam Pro, Dancing Script.
+- Use fonts with full Vietnamese coverage: `image_tools.py fontcheck` (choosing, pairing and text colour: `fonts.md`).
 - Short lines; one idea per line; date in a pill; one CTA button.

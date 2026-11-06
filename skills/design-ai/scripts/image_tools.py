@@ -8,10 +8,15 @@
   emptiness <render.png> [--grid 3] [--ratio 0.5]
                                           detail score per grid cell; flags cells far emptier than the median
   textw    <font.ttf> <size> <text>       rendered text width/height in px (VectorCraft Pixels: 1 pt = 1 px)
+  fontcheck <font.ttf> [<copy>]           glyphs missing for the full Vietnamese alphabet (+ the copy); needs fontTools
+  contrast <render.png> <x,y,w,h> <#text> <size px> [bold]
+                                          WCAG contrast of a text colour against what is really behind it in the render
+  contrast <#text> <#background> <size px> [bold]
+                                          two colours (gradient ends, palette planning before a render)
 """
 import sys
 import numpy as np
-from PIL import Image, ImageFont
+from PIL import Image, ImageFilter, ImageFont
 
 
 def load(p):
@@ -84,6 +89,53 @@ def textw(font, size, s):
     print(f"width {x1 - x0} height {y1 - y0} (left {x0}, top {y0} from origin)")
 
 
+def vietnamese():
+    import unicodedata
+    tones = ["", "\u0300", "\u0301", "\u0303", "\u0309", "\u0323"]  # huyền sắc ngã hỏi nặng
+    s = {unicodedata.normalize("NFC", v + t) for v in "aăâeêioôơuưy" for t in tones} | set("đ")
+    return "".join(sorted(s | {c.upper() for c in s}))
+
+
+def fontcheck(font, copy=""):
+    from fontTools.ttLib import TTFont
+    cmap = TTFont(font, fontNumber=0).getBestCmap()
+    need = vietnamese() + copy
+    missing = sorted({c for c in need if not c.isspace() and ord(c) not in cmap})
+    print(f"{font}: " + ("OK, full Vietnamese" if not missing else f"MISSING {len(missing)}: {''.join(missing)}"))
+    return missing
+
+
+def luminance(rgb):
+    c = np.asarray(rgb, np.float32)
+    c = np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
+    return c @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+
+
+def rgb(color):
+    return np.array([int(color.lstrip("#")[i:i + 2], 16) / 255 for i in (0, 2, 4)], np.float32)
+
+
+def contrast(p, rect, color, size, bold=False):
+    t = rgb(color)
+    if p.startswith("#"):  # colour vs colour
+        bg = rgb(p)[None]
+    else:
+        x, y, w, h = map(int, rect)
+        a = load(p)[y:y + h, x:x + w, :3]
+        m = Image.fromarray((np.abs(a - t).max(axis=2) <= 0.12).astype(np.uint8) * 255)  # the text's own pixels
+        near = lambda n: np.asarray(m.filter(ImageFilter.MaxFilter(n))) > 0
+        bg = a[near(9) & ~near(3)]  # 2–4 px ring around the glyphs = what the eye reads them against
+        if bg.size == 0:
+            sys.exit("no pixels of the text colour in rect — check the rect and the colour (gradient text: use colour mode)")
+    lt, lb = luminance(t), luminance(bg)
+    r = (np.maximum(lt, lb) + 0.05) / (np.minimum(lt, lb) + 0.05)
+    # WCAG large text = 24 px (18.7 px bold) on screen; a 1080 post shows ~2.7x smaller on a phone → 65 / 50 px here
+    large = size >= (50 if bold else 65)
+    worst, need = float(np.percentile(r, 10)), 3.0 if large else 4.5  # 10th pct: ignore stray anti-alias pixels
+    print(f"contrast {worst:.2f}:1 (median {float(np.median(r)):.2f}) need {need}:1 → {'OK' if worst >= need else 'FAIL'}")
+    return worst
+
+
 def flags(args):
     kw, rest = {}, iter(args)
     for f in rest:
@@ -111,5 +163,12 @@ if __name__ == "__main__":
         emptiness(args[0], int(kw.get("grid", ["3"])[0]), float(kw.get("ratio", ["0.5"])[0]))
     elif cmd == "textw":
         textw(args[0], float(args[1]), " ".join(args[2:]))
+    elif cmd == "fontcheck":
+        fontcheck(args[0], " ".join(args[1:]))
+    elif cmd == "contrast":
+        if args[0].startswith("#"):
+            contrast(args[1], None, args[0], float(args[2]), "bold" in args[3:])
+        else:
+            contrast(args[0], args[1].split(","), args[2], float(args[3]), "bold" in args[4:])
     else:
         sys.exit(__doc__)

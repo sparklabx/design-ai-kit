@@ -8,8 +8,9 @@ Render to PNG, view the whole image, then **zoomed crops** (`scripts/image_tools
 - [ ] Every logo on a product: centred, fully visible, looks printed (curved, lit, not a flat sticker).
 - [ ] One light direction everywhere; shadows agree; back items darker than front.
 - [ ] Colours from the brand palette only; background fresh/light unless the brand is dark.
+- [ ] Every text line passes `image_tools.py contrast` (4.5:1; 3:1 only from 65 px, or 50 px bold); ≤ 3 text colours.
 - [ ] No visible seams where an image meets vector background (zoom the boundary).
-- [ ] Fonts rendered (no fallback warning); Vietnamese diacritics correct.
+- [ ] Fonts rendered (no fallback warning); every font passes `image_tools.py fontcheck`; ≤ 2 families; stacked marks (Ặ Ầ) clear of the line above.
 - [ ] Placeholder copy listed in the reply; asset sources/licences noted; credits spent reported.
 - [ ] After any structural change (zoom/crop an image, add/remove a frame or clip): look at an **app screenshot**
       (`ui_screenshot` / `render_preview` in the GUI), not only the export — artboard-edge lines show only there.
