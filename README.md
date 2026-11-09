@@ -1,45 +1,54 @@
 # design-ai-kit
 
-Teach your AI agent to design marketing visuals that clients accept — social banners, promo posts, posters,
-event recaps. One skill, distilled from real client revision rounds.
+**Tiếng Việt** · [English](README.en.md)
 
-What it gives the agent:
+Dạy AI agent của bạn thiết kế ấn phẩm marketing mà khách hàng duyệt được: banner mạng xã hội, bài khuyến mãi,
+poster, ảnh tổng kết sự kiện. Một skill duy nhất, đúc rút từ các vòng sửa thiết kế thật với khách.
 
-1. **A workflow** (`skills/design-ai/SKILL.md`) — brief → brand research → agree a direction → assets → scripted build → self-check →
-   deliver → feed the kit. Asks for a reference early, proposes 2–3 directions when the brief is vague, verifies offers/dates, never exports before approval, and after approval proposes what the job should add to the kit (new example, rule, gotcha).
-2. **Design principles** (`references/principles.md`) — rules learned from rejected drafts: match the brand's own
-   style, fresh over dark, one light source, offer is the hero, no empty zones, logos printed *into* product photos.
-3. **Re-runnable builds** — JSON config → VectorCraft document, headless; every revision is a config edit +
-   re-run. `scripts/build_template.py` (flat layout with a colour wave) and `scripts/scene_template.py`
-   (one full-bleed photo + lettering, clipped to the artboard). Starting configs in `skills/design-ai/examples/`.
-4. **Image tools** — `scripts/image_tools.py`: alpha bbox, edge feathering, lighting harmonisation, contact sheets,
-   empty-space score per grid cell, text width.
-5. **AI asset recipes** (`references/ai-assets.md`) — stock first; AI to print a logo onto a product, generate
-   particles, fix one thing in a scene. Tested with the Magnific MCP; any reference-capable image model works.
-6. **Fonts and lettering** (`references/fonts.md`, `scripts/lettering.py`) — a Vietnamese-checked font shortlist, a
-   sheet-first way to pick the title font, and title effects the engine can't draw (3D sign, brush ink, arch).
+Kit cung cấp cho agent:
 
-## Examples
+1. **Quy trình làm việc** (`skills/design-ai/SKILL.md`): brief → tìm hiểu thương hiệu → chốt hướng thiết kế →
+   tài sản (ảnh, logo) → dựng bằng script → tự kiểm tra → bàn giao → bổ sung bài học vào kit. Agent xin ảnh tham
+   khảo từ sớm, đưa 2–3 hướng khi brief còn mơ hồ, kiểm tra lại ưu đãi và ngày tháng, không xuất file trước khi
+   được duyệt, và sau khi duyệt thì đề xuất những gì job này nên thêm vào kit (example mới, quy tắc, lưu ý).
+2. **Nguyên tắc thiết kế** (`references/principles.md`): các quy tắc rút ra từ những bản nháp bị trả về. Theo đúng
+   phong cách của thương hiệu, ưu tiên tươi sáng hơn tối, một nguồn sáng, ưu đãi là nhân vật chính, không để khoảng
+   trống thừa, logo phải được in *vào* ảnh sản phẩm.
+3. **Dựng lại được bất cứ lúc nào**: file cấu hình JSON → tài liệu VectorCraft, chạy không cần mở giao diện; mỗi lần
+   sửa chỉ là sửa cấu hình rồi chạy lại. Có `scripts/build_template.py` (bố cục phẳng với dải màu lượn sóng) và
+   `scripts/scene_template.py` (một ảnh tràn viền kèm chữ, được cắt khít theo artboard). Cấu hình mẫu nằm trong
+   `skills/design-ai/examples/`.
+4. **Công cụ xử lý ảnh** (`scripts/image_tools.py`): đo vùng có nội dung của ảnh trong suốt, làm mờ mép, đồng bộ
+   ánh sáng, ghép ảnh so sánh, chấm điểm vùng trống theo lưới, đo độ rộng chữ.
+5. **Công thức tạo tài sản bằng AI** (`references/ai-assets.md`): ưu tiên ảnh stock; dùng AI để in logo lên sản
+   phẩm, tạo hạt trang trí, sửa một chi tiết trong ảnh. Đã thử với Magnific MCP; model ảnh nào nhận được ảnh
+   tham chiếu cũng dùng được.
+6. **Font và chữ tiêu đề** (`references/fonts.md`, `scripts/lettering.py`): danh sách font đã kiểm đủ tiếng Việt,
+   cách chọn font tiêu đề bằng bảng so sánh, và các hiệu ứng chữ mà engine không tự vẽ được (biển hiệu 3D, bút lông,
+   uốn vòng cung).
 
-A promo post built with `scene_template.py` (fictional brand, AI-generated scene, logo printed into the cup):
+## Minh hoạ
 
-<img src="docs/banner.jpg" alt="Square promo post for a fictional matcha drink" width="400">
+Một bài khuyến mãi dựng bằng `scene_template.py` (thương hiệu hư cấu, cảnh do AI tạo, logo in lên ly):
 
-The same build open in VectorCraft — the script writes a clean layer tree (SCENE clipped to the artboard,
-TEXT + LOGO on top), so a designer can take over by hand:
+<img src="docs/banner.jpg" alt="Bài khuyến mãi vuông cho một món matcha hư cấu" width="400">
 
-![VectorCraft window with the promo post open and its two layers](docs/vectorcraft-ui.jpg)
+Cùng bản dựng đó mở trong VectorCraft: script tạo sẵn cây layer gọn gàng (SCENE cắt khít artboard, TEXT + LOGO
+ở trên), nên designer có thể nhận lại và sửa tay tiếp:
 
-Title effects from `lettering.py` — `sign` (gradient fill, outline, 3D extrusion) and `ink` (hand-drawn brush pen),
-both arched:
+![Cửa sổ VectorCraft đang mở bài khuyến mãi với hai layer](docs/vectorcraft-ui.jpg)
 
-![Two title lettering effects on a dark background](docs/lettering.png)
+Hiệu ứng chữ tiêu đề từ `lettering.py`: `sign` (tô chuyển màu, viền, khối nổi 3D) và `ink` (nét bút lông vẽ tay),
+cả hai đều uốn cong:
 
-A font sheet as the client sees it: eight scripts with full Vietnamese, numbered, same copy — pick one in one round:
+![Hai hiệu ứng chữ tiêu đề trên nền tối](docs/lettering.png)
 
-![Eight numbered script fonts showing the same Vietnamese phrase](docs/font-sheet.png)
+Bảng font đúng như khách nhìn thấy: tám font script đủ tiếng Việt, đánh số, cùng một câu chữ, để khách chọn trong
+một lượt:
 
-## Install
+![Tám font script đánh số cùng hiển thị một câu tiếng Việt](docs/font-sheet.png)
+
+## Cài đặt
 
 ```bash
 git clone https://github.com/sparklabx/design-ai-kit
@@ -47,23 +56,24 @@ mkdir -p ~/.claude/skills && cp -r design-ai-kit/skills/design-ai ~/.claude/skil
 mkdir -p ~/.gemini/config/skills && cp -r design-ai-kit/skills/design-ai ~/.gemini/config/skills/   # Antigravity
 ```
 
-Other agents: point them at `skills/design-ai/SKILL.md`.
+Agent khác: trỏ tới `skills/design-ai/SKILL.md`.
 
-**Requirements:** Python 3.9+ (the skill installs Pillow/numpy into `~/.cache/design-ai/venv` if missing), plus one engine — Illustrator › VectorCraft (`vectorcraft-cli`)
-› Photoshop, picked in that order. The Adobe path (`scripts/steps_to_svg.py` + `scripts/adobe.py`, macOS) is
-untested in the apps; see `references/adobe.md`. Optional: an image-generation MCP, or the Antigravity CLI `agy`
-(`scripts/agy_image.py` uses its built-in image tool on your Google plan).
+**Yêu cầu:** Python 3.9 trở lên (nếu thiếu Pillow/numpy, skill tự cài vào `~/.cache/design-ai/venv`), cùng một
+engine, chọn theo thứ tự Illustrator › VectorCraft (`vectorcraft-cli`) › Photoshop. Nhánh Adobe
+(`scripts/steps_to_svg.py` + `scripts/adobe.py`, macOS) chưa được thử trong ứng dụng thật; xem `references/adobe.md`.
+Tuỳ chọn: một MCP tạo ảnh, hoặc Antigravity CLI `agy` (`scripts/agy_image.py` dùng công cụ tạo ảnh có sẵn trong gói
+Google của bạn).
 
-## Try it
+## Dùng thử
 
 ```bash
 cd skills/design-ai
-cp examples/promo-square.json my.json   # or examples/scene-square.json with scripts/scene_template.py
-# edit my.json: asset paths, copy, palette, positions
+cp examples/promo-square.json my.json   # hoặc examples/scene-square.json với scripts/scene_template.py
+# sửa my.json: đường dẫn tài sản, nội dung chữ, bảng màu, vị trí
 python3 -E scripts/build_template.py my.json steps.json out.vectorcraft
 vectorcraft-cli run --commands steps.json --export preview.png
 ```
 
-## License
+## Giấy phép
 
-MIT. Brand names in the docs are examples only; no third-party logos or product images are included.
+MIT. Tên thương hiệu trong tài liệu chỉ là ví dụ; repo không chứa logo hay ảnh sản phẩm của bên thứ ba.
