@@ -21,6 +21,28 @@ What it gives the agent:
 6. **Fonts and lettering** (`references/fonts.md`, `scripts/lettering.py`) — a Vietnamese-checked font shortlist, a
    sheet-first way to pick the title font, and title effects the engine can't draw (3D sign, brush ink, arch).
 
+## How you and the AI work together
+
+A job goes through 9 steps; you only decide at the ⭐ steps, the AI does the rest.
+
+| # | Step | You | AI |
+|---|---|---|---|
+| 1 | **Brief** ⭐ | Brand, purpose, format, copy; send logo, photos, a reference | Asks for what's missing, marks anything it had to guess as placeholder |
+| 2 | **Brand research** | — | Finds the logo, official posters and lettering; checks the facts are current |
+| 3 | **Agree a direction** ⭐ | Pick 1 of 2–3 directions | One line per direction, with the AI credits it would cost |
+| 4 | **Title font** ⭐ | Pick a number on the sheet | 6–8 numbered fonts, real copy on the real background; effects on a separate sheet |
+| 5 | **Assets** | Approve if it costs credits | Brand files › stock › AI; quotes credits before each paid call |
+| 6 | **Build and self-check** | — | Scripted build; checks contrast, Vietnamese marks, empty zones, image seams |
+| 7 | **Feedback** ⭐ | Say what's off, as specifically as you can | Restates what it will change; the same defect rejected twice → a different approach, not another patch |
+| 8 | **Export** ⭐ | Say "approved, export" | Exports only on approval: print PDF and 300 dpi PNG/JPG, keeps a snapshot |
+| 9 | **Feed the kit** ⭐ | Approve which lessons go in, then the commit/push | Proposes lessons (brand names stripped), re-runs the examples, shows the diff |
+
+**Always:** no export, commit or push without your go; no real brands, real people or copyrighted artwork in a
+public repo without permission; every paid AI call is quoted first.
+
+**To go faster:** send a reference at the start; give feedback by circling or cropping the image rather than in
+words alone; pick by number from a sheet ("number 15").
+
 ## Examples
 
 A promo post built with `scene_template.py` (fictional brand, AI-generated scene, logo printed into the cup):

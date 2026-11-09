@@ -27,6 +27,28 @@ Kit cung cấp cho agent:
    cách chọn font tiêu đề bằng bảng so sánh, và các hiệu ứng chữ mà engine không tự vẽ được (biển hiệu 3D, bút lông,
    uốn vòng cung).
 
+## Cách làm việc giữa người và AI
+
+Một job đi qua 9 bước; bạn chỉ quyết ở các bước có ⭐, còn lại AI tự làm.
+
+| # | Bước | Bạn | AI |
+|---|---|---|---|
+| 1 | **Brief** ⭐ | Nói nhãn hàng, mục đích, khổ, nội dung; gửi logo, ảnh, ảnh tham khảo | Hỏi những gì còn thiếu, đánh dấu TẠM chỗ phải tự đoán |
+| 2 | **Tìm hiểu thương hiệu** | — | Tìm logo, poster chính thức, chữ của hãng; kiểm tra thông tin còn đúng |
+| 3 | **Chốt hướng** ⭐ | Chọn 1 trong 2–3 hướng | Mỗi hướng một dòng mô tả kèm ước tính credit AI |
+| 4 | **Chọn font tiêu đề** ⭐ | Chọn số trên bảng so sánh | Dựng bảng 6–8 font đánh số, đúng chữ, trên nền thật; hiệu ứng chữ là bảng riêng |
+| 5 | **Tài sản** | Duyệt nếu tốn credit | Ảnh của hãng › stock › AI; báo giá credit trước khi gọi |
+| 6 | **Dựng và tự kiểm tra** | — | Dựng bằng script; kiểm tra tương phản, dấu tiếng Việt, khoảng trống, chỗ nối ảnh |
+| 7 | **Góp ý** ⭐ | Nói chỗ chưa ưng, càng cụ thể càng nhanh | Nhắc lại sẽ sửa gì; một lỗi bị trả về 2 lần thì đổi cách làm thay vì sửa vặt |
+| 8 | **Xuất file** ⭐ | Nói "chốt, xuất" | Chỉ xuất khi được duyệt: PDF và PNG/JPG 300 dpi để in, lưu bản keep |
+| 9 | **Cập nhật kit** ⭐ | Đồng ý mục nào được thêm, rồi duyệt commit/push | Đề xuất bài học (đã bỏ tên thương hiệu), chạy lại example, cho xem diff |
+
+**Luôn áp dụng:** không xuất file, commit hay push khi chưa được đồng ý; không đưa thương hiệu thật, người thật hay
+artwork có bản quyền lên repo công khai khi chưa được phép; mọi lệnh tốn credit AI đều được báo giá trước.
+
+**Mẹo cho nhanh:** gửi ảnh tham khảo ngay từ đầu; góp ý bằng cách khoanh hoặc crop vào ảnh thay vì chỉ mô tả bằng
+lời; chọn theo số trên bảng ("chọn số 15").
+
 ## Minh hoạ
 
 Một bài khuyến mãi dựng bằng `scene_template.py` (thương hiệu hư cấu, cảnh do AI tạo, logo in lên ly):
