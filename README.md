@@ -16,6 +16,28 @@ What it gives the agent:
    empty-space score per grid cell, text width.
 5. **AI asset recipes** (`references/ai-assets.md`) — stock first; AI to print a logo onto a product, generate
    particles, fix one thing in a scene. Tested with the Magnific MCP; any reference-capable image model works.
+6. **Fonts and lettering** (`references/fonts.md`, `scripts/lettering.py`) — a Vietnamese-checked font shortlist, a
+   sheet-first way to pick the title font, and title effects the engine can't draw (3D sign, brush ink, arch).
+
+## Examples
+
+A promo post built with `scene_template.py` (fictional brand, AI-generated scene, logo printed into the cup):
+
+<img src="docs/banner.jpg" alt="Square promo post for a fictional matcha drink" width="400">
+
+The same build open in VectorCraft — the script writes a clean layer tree (SCENE clipped to the artboard,
+TEXT + LOGO on top), so a designer can take over by hand:
+
+![VectorCraft window with the promo post open and its two layers](docs/vectorcraft-ui.jpg)
+
+Title effects from `lettering.py` — `sign` (gradient fill, outline, 3D extrusion) and `ink` (hand-drawn brush pen),
+both arched:
+
+![Two title lettering effects on a dark background](docs/lettering.png)
+
+A font sheet as the client sees it: eight scripts with full Vietnamese, numbered, same copy — pick one in one round:
+
+![Eight numbered script fonts showing the same Vietnamese phrase](docs/font-sheet.png)
 
 ## Install
 
