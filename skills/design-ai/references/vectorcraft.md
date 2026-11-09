@@ -76,6 +76,10 @@ Ship the font files with the `.ai`. VectorCraft also **opens** `.ai/.psd/.pdf/.e
 - `shape.ellipse {rotation}` was ignored once — rotate after drawing with `object.rotate {angle}`.
 - Closed loops drawn as Bézier paths (bow loops) may not render — use ellipses.
 - Gradient on text works: select the text → `paint.setFill {gradient:{kind:"linear", angle:-90, stops:[…]}}`.
+- **No colour emoji** in text: render the emoji with Pillow (`/System/Library/Fonts/Apple Color Emoji.ttc`, size 160,
+  `embedded_color=True`), tint it to the text colour if asked, and place it as a PNG between two text runs
+  (measure the runs with `ImageFont.getlength`).
+- Outlines, 3D extrusion, brush-ink texture and arched text: not native — `scripts/lettering.py` (fonts.md §Choosing).
 - Python: run scripts with `python3 -E` (not `-I`: it hides user-site Pillow/numpy; there is no `-P` on 3.9) and
   never from inside a folder holding downloaded files.
 - Exports are big (PSD 2–5 MB, @2x PNG 3 MB). Don't export intermediates.
